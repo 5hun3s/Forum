@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ Forum.title }}{% endblock title %}
+{% block h1 %}{{ Forum.title }}{% endblock h1 %}
+
+{% block content %}
+<div class="p-4 m-4 bg-light border border-success rounded">
+    <h2 class="text-success">{{Forum.title}} : {{Forum.created_at.year}}年 {{Forum.created_at.month}}月 {{Forum.created_at.day}}日</h2>
+    <div class="border p-4 mb-2">
+        <div>
+            <div class="px-2">
+                <p>----------------------</p>
+                {% for comment in Comment_List %}
+                <p>{{comment.user.username}}:{{comment.text}}</p>
+                <p></p>
+                <span>({{comment.created_at.year}}年 {{comment.created_at.month}}月
+                {{comment.created_at.day}}日 {{comment.created_at.hour}}:{{comment.created_at.minute}})</span>
+                <p>----------------------</p>
+                <!--
+                <p>{{comment.response}}</p>
+                <p></p>
+                <span>({{comment.created_at.year}}年 {{comment.created_at.month}}月
+                    {{comment.created_at.day}}日 {{comment.created_at.hour}}:{{comment.created_at.minute}})</span>
+                <p>----------------------</p>
+                -->
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!--投稿-->
+    <div class="ui segment">
+        <form class="ui-form" action="" method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button class="ui button orange" type="submit">投稿</button>
+        </form>
+    </div>
+    <a href="{% url 'forum-list' %}" class="btn btn-primary">一覧へ</a>
+</div>
+{% endblock content %}

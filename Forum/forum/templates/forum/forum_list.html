@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}掲示板一覧{% endblock title %}
+{% block h1 %}掲示板一覧{% endblock h1 %}
+
+{% block content %}
+<div class="col-9">
+    {% for item in object_list %}
+    <div class="p-4 m-4 bg-light border border-success rounded">
+        <h2 class="text-success">{{item.title}}</h2>
+        <a href="{% url 'forum-detail' item.pk %}">中身へ</a>
+    </div>
+</div>
+{% endfor %}
+{% endblock content %}
